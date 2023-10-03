@@ -1,9 +1,13 @@
 "use client";
 
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import {
+  Session,
+  createClientComponentClient,
+} from "@supabase/auth-helpers-nextjs";
+import { useRouter } from "next/navigation";
 import React from "react";
 
-const AuthButton = () => {
+const AuthButton = ({ session }: { session: Session | null }) => {
   const handleLogin = async () => {
     await supabase.auth.signInWithOAuth({
       provider: "github",
@@ -16,16 +20,16 @@ const AuthButton = () => {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    console.log("clicked");
+    router.refresh();
   };
 
   const supabase = createClientComponentClient();
+  const router = useRouter();
 
-  return (
-    <div>
-      <button onClick={handleLogin}>Login</button>
-      <button onClick={handleLogout}>Logout</button>
-    </div>
+  return session ? (
+    <button onClick={handleLogout}>Logout</button>
+  ) : (
+    <button onClick={handleLogin}>Login</button>
   );
 };
 
