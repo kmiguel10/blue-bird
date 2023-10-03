@@ -23,7 +23,7 @@ const AuthButton = ({ session }: { session: Session | null }) => {
     router.refresh();
   };
 
-  const supabase = createClientComponentClient();
+  const supabase = createClientComponentClient<Database>();
   const router = useRouter();
 
   return session ? (
