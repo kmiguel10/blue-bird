@@ -15,7 +15,6 @@ const AuthButton = ({ session }: { session: Session | null }) => {
         redirectTo: "http://localhost:3000/auth/callback",
       },
     });
-    console.log("clicked");
   };
 
   const handleLogout = async () => {
@@ -27,9 +26,13 @@ const AuthButton = ({ session }: { session: Session | null }) => {
   const router = useRouter();
 
   return session ? (
-    <button onClick={handleLogout}>Logout</button>
+    <button className="text-xs text-gray-400" onClick={handleLogout}>
+      Logout
+    </button>
   ) : (
-    <button onClick={handleLogin}>Login</button>
+    <button className="text-xs text-gray-400" onClick={handleLogin}>
+      Login
+    </button>
   );
 };
 
